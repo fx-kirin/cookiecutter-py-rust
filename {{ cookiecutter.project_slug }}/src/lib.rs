@@ -1,26 +1,16 @@
-#![feature(proc_macro, specialization)]
-
-pub extern crate pyo3;
-
 use pyo3::prelude::*;
-use pyo3::py::modinit as pymodinit;
+use pyo3::wrap_pyfunction;
 
-#[cfg(test)]
-mod tests;
-
-fn add(a: f64, b: f64) -> f64 {
-    a + b
+#[pyfunction]
+/// Formats the sum of two numbers as string
+fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
+    Ok((a + b).to_string())
 }
 
-
-#[pymodinit(example)]
-fn init_mod(py: Python, m: &PyModule) -> PyResult<()> {
-
-    #[pyfn(m, "add")]
-    fn add_py(a: f64, b:f64) -> PyResult<f64> {
-        add(a, b)
-    }
+/// This module is a python module implemented in Rust.
+#[pymodule]
+fn rust_binding(py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_wrapped(wrap_pyfunction!(sum_as_string))?;
 
     Ok(())
 }
-
