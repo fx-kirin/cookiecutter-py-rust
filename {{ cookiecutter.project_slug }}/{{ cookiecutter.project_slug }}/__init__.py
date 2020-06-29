@@ -1,3 +1,6 @@
 from ._version import __version__
 
-from . import rust_binidng
+try:
+    from . import rust_binidng
+except ImportError:
+    pass
