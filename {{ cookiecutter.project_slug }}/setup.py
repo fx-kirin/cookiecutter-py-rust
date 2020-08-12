@@ -1,6 +1,5 @@
 import sys
 from setuptools import setup
-from {{cookiecutter.project_slug}}._version import __version__
 
 try:
     from setuptools_rust import RustExtension, Binding
@@ -15,7 +14,7 @@ except ImportError:
 
 
 setup(name="{{ cookiecutter.package_name }}",
-      version=__version__,
+      version="{{ cookiecutter.version }}",
       author="{{ cookiecutter.full_name }}",
       maintainer='{{ cookiecutter.full_name }}',
       author_email='{{ cookiecutter.email }}',
